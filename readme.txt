@@ -1,4 +1,4 @@
-=== Shiba Example Plugin ===
+=== Verelo Blog Monitoring Plugin ===
 Contributors: Verelo Inc.
 Tags: monitoring, malware, virus, uptime, downtime, outage, responsetime, response, load speed, speed, verelo, hacked, hack, notification
 Requires at least: 2.9
