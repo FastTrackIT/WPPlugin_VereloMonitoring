@@ -40,9 +40,13 @@ $admin_email = get_option('admin_email');
     <?php screen_icon(); ?>
     <h2>Blog Monitoring by <a href="http://www.verelo.com">verelo.com</a></h2>
 		<div id="message" class="updated fade"><p><?php echo $message; ?></p>Blog monitoring is currently enabled.</div>
-	<h3>Login details</h3>
+	<h3>Quick Login Details</h3>
 	<p>
-	<strong>To login to Verelo visit </strong><a href="https://app.verelo.com/" target="_BLANK">https://app.verelo.com/</a><br/>
+		<strong><a href="<?php echo get_option("verelo_autologin_service_url","https://app.verelo.com/"); ?>">Click here to auto login</a></strong>
+	</p>
+	<h3>Manual Login</h3>
+	<p>
+	To login manually visit: <a href="https://app.verelo.com/" target="_BLANK">https://app.verelo.com/</a><br/>
 	<strong>User:</strong> <?php echo $admin_email; ?><br/>
 	<strong>Password:</strong> Was randomly generated and emailed to <?php echo $admin_email; ?>. <a target="_BLANK" href="https://app.verelo.com/forgotpassword?email=<?php echo urlencode($admin_email); ?>">Forgot your password?</a><br/>
 	</p>

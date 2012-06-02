@@ -8,7 +8,6 @@ Author: Verelo Inc.
 Author URI: http://www.verelo.com
 */
 
-
 /*  Copyright 2012  Verelo Inc.
 
     This program is free software; you can redistribute it and/or modify
@@ -25,6 +24,8 @@ Author URI: http://www.verelo.com
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+
 // don't load directly
 if (!function_exists('is_admin')) {
     header('Status: 403 Forbidden');
@@ -107,8 +108,15 @@ class Verelo {
 		$provider = "wordpress-plugin";
 
 		//api url to activate the user
-		$url = "https://app.verelo.com/create-user?act=user_create&user_email=$adminemail&user_zone=$blogname&test_url=$siteurl&provider=$provider";
+		$url = "https://app.verelo.com/provision?act=user_create&user_email=$adminemail&user_zone=$blogname&test_url=$siteurl&provider=$provider";
 		$response = file_get_contents($url);
+		$obj = json_decode($response);
+		if($obj->result != "success")
+			die("Plugin installation failed, please try again later!");
+		else
+		{
+			add_option( "verelo_autologin_service_url", $obj->response->service_url, "", true );
+		}
 	}
 	
 	function _deactivate() {}
@@ -123,7 +131,7 @@ class Verelo {
 	function add_pages() {
 	
 		// Add a new submenu
-		$this->addpage = add_options_page(	__('Verelo Blog Monitoring', 'verelo'), __('Verelo Blog Monitoring', 'verelo'), 
+		$this->addpage = add_utility_page(	__('Verelo Blog Monitoring', 'verelo'), __('Verelo Blog Monitoring', 'verelo'), 
 											'administrator', 'verelo', 
 											array(&$this,'add_verelo_page') );
 		add_action("admin_head-$this->addpage", array(&$this,'add_verelo_admin_head'));
